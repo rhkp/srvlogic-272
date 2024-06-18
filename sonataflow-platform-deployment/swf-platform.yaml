@@ -1,0 +1,43 @@
+kind: SonataFlowPlatform
+apiVersion: sonataflow.org/v1alpha08
+metadata:
+  name: sonataflow-platform-example
+  namespace: aswf
+spec:
+  services:
+    dataIndex:
+      enabled: true
+      podTemplate:
+        initContainers:
+        - name: di-init-hello
+          image: busybox:1.28
+          command: ['sh', '-c', 'echo The DI will be deployed!']
+      persistence:
+        postgresql:
+          serviceRef:
+            name: sonataflow-postgresql
+            namespace: aswf
+            databaseName: rh-db
+            port: 5432
+          secretRef:
+            name: postgres-secrets
+            userKey: POSTGRESQL_USER
+            passwordKey: POSTGRESQL_PASSWORD
+    jobService:
+      enabled: true
+      podTemplate:
+        initContainers:
+          - name: di-init-hello
+            image: busybox:1.28
+            command: ['sh', '-c', 'echo The JS will be deployed!']
+      persistence:
+        postgresql:
+          serviceRef:
+            name: sonataflow-postgresql
+            namespace: aswf
+            databaseName: rh-db
+            port: 5432
+          secretRef:
+            name: postgres-secrets
+            userKey: POSTGRESQL_USER
+            passwordKey: POSTGRESQL_PASSWORD
