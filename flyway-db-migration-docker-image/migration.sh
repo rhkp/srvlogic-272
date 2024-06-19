@@ -22,5 +22,5 @@ else
     cp /js-db-migration-files/*.sql /flyway/sql
 fi
 
-flyway -url="$2" -user="$3" -password="$4" info
 flyway -url="$2" -user="$3" -password="$4" migrate
+flyway -url="$2" -user="$3" -password="$4" info

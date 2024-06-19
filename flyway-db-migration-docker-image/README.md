@@ -30,12 +30,12 @@ podman run flyway-image DI jdbc:postgresql://host.docker.internal:5432/di-db <yo
 ```
 * You should see output, which contains the following
 ```text
-+-----------+---------+-------------+------+--------------+---------+----------+
-| Category  | Version | Description | Type | Installed On | State   | Undoable |
-+-----------+---------+-------------+------+--------------+---------+----------+
-| Versioned | 1.0.0   | di mytable  | SQL  |              | Pending | No       |
-| Versioned | 1.0.1   | di mytable2 | SQL  |              | Pending | No       |
-+-----------+---------+-------------+------+--------------+---------+----------+
++-----------+---------+-------------+------+---------------------+---------+----------+
+| Category  | Version | Description | Type | Installed On        | State   | Undoable |
++-----------+---------+-------------+------+---------------------+---------+----------+
+| Versioned | 1.0.0   | di mytable  | SQL  | 2024-06-19 19:41:49 | Success | No       |
+| Versioned | 1.0.1   | di mytable2 | SQL  | 2024-06-19 19:41:50 | Success | No       |
++-----------+---------+-------------+------+---------------------+---------+----------+
 ```
 * Verify the database indeed has the tables shown above.
 
@@ -46,11 +46,11 @@ podman run flyway-image JS jdbc:postgresql://host.docker.internal:5432/js-db <yo
 ```
 * You should see output, which contains the following
 ```text
-+-----------+---------+-------------+------+--------------+---------+----------+
-| Category  | Version | Description | Type | Installed On | State   | Undoable |
-+-----------+---------+-------------+------+--------------+---------+----------+
-| Versioned | 1.0.0   | js mytable  | SQL  |              | Pending | No       |
-| Versioned | 1.0.1   | js mytable2 | SQL  |              | Pending | No       |
-+-----------+---------+-------------+------+--------------+---------+----------+
++-----------+---------+-------------+------+---------------------+---------+----------+
+| Category  | Version | Description | Type | Installed On        | State   | Undoable |
++-----------+---------+-------------+------+---------------------+---------+----------+
+| Versioned | 1.0.0   | js mytable  | SQL  | 2024-06-19 19:40:40 | Success | No       |
+| Versioned | 1.0.1   | js mytable2 | SQL  | 2024-06-19 19:40:40 | Success | No       |
++-----------+---------+-------------+------+---------------------+---------+----------+
 ```
 * Verify the database indeed has the tables shown above.
