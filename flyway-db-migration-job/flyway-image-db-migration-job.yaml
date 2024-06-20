@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flyway-image-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: flyway-image
+          image: quay.io/rhkp/flyway-image:latest
+          command: ["./migration.sh",  "DI", "jdbc:postgresql://postgres:5432/di-db", "your-db-user", "your-db-password"]
+      restartPolicy: Never
+  backoffLimit: 4
