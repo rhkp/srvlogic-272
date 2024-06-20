@@ -8,6 +8,22 @@ spec:
       containers:
         - name: flyway-image
           image: quay.io/rhkp/flyway-image:latest
-          command: ["./migration.sh",  "DI", "jdbc:postgresql://postgres:5432/di-db", "your-db-user", "your-db-password"]
+          command: ["./migration.sh"]
+          args:
+            - "JS" #DI=Data Index, change to JS for Job Service
+            - "jdbc:postgresql://postgres:5432/js-db" #di-db=Data Index, change to js-db for Job Service
+            - "$(db_username)"
+            - "$(db_password)"
+          env:
+            - name: db_username
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_USER
+            - name: db_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
       restartPolicy: Never
   backoffLimit: 4

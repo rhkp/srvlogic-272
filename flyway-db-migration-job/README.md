@@ -43,6 +43,7 @@ oc apply -f flyway-image-db-migration-job.yaml
 | Versioned | 1.0.1 | di mytable2 | SQL | 2024-06-20 17:56:30 | Success | No |
 +-----------+---------+-------------+------+---------------------+---------+----------+
 ```
+* Also, once the job completes, Workloads->Pods->flyway-image-job should show a green tick besides it, signifying successful completion. 
 
 ## Uninstall Resources
 ```shell
