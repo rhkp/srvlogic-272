@@ -1,4 +1,4 @@
-# Migrate database in OpenShift Cluster using flyway-mage
+# Migrate database in OpenShift Cluster using flyway-image
 
 ## Issue description
 [SRVLOGIC-272: Persistency and schema initialization handling](https://issues.redhat.com/browse/SRVLOGIC-272)
@@ -18,15 +18,6 @@ oc create secret generic postgres-secrets --from-literal=POSTGRES_USER=your-db-u
 
 oc apply -f pg.yaml
 ```
-* Once the postgres pod is available, in the OpenShift console's Admin view, navigate to Workloads->Pods->Postgres->Terminal
-* In the Postgres terminal use following commands to create di-db and js-db databases, before migration job can be run.
-```shell
-psql -U your-db-user -d postgres
-
-# Following two lines are to be executed on postgres prompt in psql application
-postgres=# CREATE DATABASE "di-db";
-postgres=# CREATE DATABASE "js-db"
-```
 
 ## Deploy and Run DB Migration Job
 * In the terminal window of developer machine, use the following command to start DB migration job.
@@ -36,12 +27,15 @@ oc apply -f flyway-image-db-migration-job.yaml
 * In OpenShift console, navigate to Workloads->Pods->flyway-image-job Pod->Logs
 * You should see an output similar to the following
 ```text
-+-----------+---------+-------------+------+---------------------+---------+----------+
++-----------+---------+------------------+--------------+---------------------+----------+----------+
 | Category | Version | Description | Type | Installed On | State | Undoable |
-+-----------+---------+-------------+------+---------------------+---------+----------+
-| Versioned | 1.0.0 | di mytable | SQL | 2024-06-20 17:56:30 | Success | No |
-| Versioned | 1.0.1 | di mytable2 | SQL | 2024-06-20 17:56:30 | Success | No |
-+-----------+---------+-------------+------+---------------------+---------+----------+
++-----------+---------+------------------+--------------+---------------------+----------+----------+
+| Baseline | 1.0.0 | di create schema | SQL_BASELINE | 2024-06-21 19:19:04 | Baseline | No |
+| Versioned | 1.0.1 | di mytable | SQL | 2024-06-21 19:19:04 | Success | No |
+| Versioned | 1.0.2 | di mytable2 | SQL | 2024-06-21 19:19:04 | Success | No |
+| Versioned | 1.0.3 | js mytable | SQL | 2024-06-21 19:19:04 | Success | No |
+| Versioned | 1.0.4 | js mytable2 | SQL | 2024-06-21 19:19:04 | Success | No |
++-----------+---------+------------------+--------------+---------------------+----------+----------+
 ```
 * Also, once the job completes, Workloads->Pods->flyway-image-job should show a green tick besides it, signifying successful completion. 
 

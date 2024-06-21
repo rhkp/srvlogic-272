@@ -1,0 +1,4 @@
+DROP SCHEMA IF EXISTS "di-db";
+CREATE SCHEMA "di-db";
+DROP SCHEMA IF EXISTS "js-db";
+CREATE SCHEMA "js-db";

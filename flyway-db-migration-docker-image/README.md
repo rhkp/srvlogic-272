@@ -14,43 +14,29 @@
 ```
 * The image can be executed with the command of the form
 ```shell
-podman run flyway-image <component> <url> <your-db-user> <your-db-password>
+podman run flyway-image <url> <your-db-user> <your-db-password>
 
-# component: DI for data index or JS for job service
-# url: jdbc:postgresql:<server>:<port>/<db> e.g. jdbc:postgresql://host.docker.internal:5432/js-db
+# url: jdbc:postgresql:<server>:<port>/<db> e.g. jdbc:postgresql://host.docker.internal:5432/sonataflow
 ```
 
 ## Create databases in Postgres Server
-* Create two databases on the Postgres DB server: `di-db` for data index and `js-db` for jobs service.
+* Create a database on the Postgres DB server with name: `sonataflow`.
 
-## Run the DB Migration Image - DI
-* Migrate the data index database using following command
+## Run the DB Migration Image
+* Migrate the database using following command
 ```shell
-podman run flyway-image DI jdbc:postgresql://host.docker.internal:5432/di-db <your-db-user> <your-db-password>
+podman run flyway-image jdbc:postgresql://host.docker.internal:5432/sonataflow <your-db-user> <your-db-password>
 ```
 * You should see output, which contains the following
 ```text
-+-----------+---------+-------------+------+---------------------+---------+----------+
-| Category  | Version | Description | Type | Installed On        | State   | Undoable |
-+-----------+---------+-------------+------+---------------------+---------+----------+
-| Versioned | 1.0.0   | di mytable  | SQL  | 2024-06-19 19:41:49 | Success | No       |
-| Versioned | 1.0.1   | di mytable2 | SQL  | 2024-06-19 19:41:50 | Success | No       |
-+-----------+---------+-------------+------+---------------------+---------+----------+
-```
-* Verify the database indeed has the tables shown above.
-
-## Run the DB Migration Image - JS
-* Migrate the job service database using following command
-```shell
-podman run flyway-image JS jdbc:postgresql://host.docker.internal:5432/js-db <your-db-user> <your-db-password>
-```
-* You should see output, which contains the following
-```text
-+-----------+---------+-------------+------+---------------------+---------+----------+
-| Category  | Version | Description | Type | Installed On        | State   | Undoable |
-+-----------+---------+-------------+------+---------------------+---------+----------+
-| Versioned | 1.0.0   | js mytable  | SQL  | 2024-06-19 19:40:40 | Success | No       |
-| Versioned | 1.0.1   | js mytable2 | SQL  | 2024-06-19 19:40:40 | Success | No       |
-+-----------+---------+-------------+------+---------------------+---------+----------+
++-----------+---------+------------------+--------------+---------------------+----------+----------+
+| Category  | Version | Description      | Type         | Installed On        | State    | Undoable |
++-----------+---------+------------------+--------------+---------------------+----------+----------+
+| Baseline  | 1.0.0   | di create schema | SQL_BASELINE | 2024-06-21 19:15:46 | Baseline | No       |
+| Versioned | 1.0.1   | di mytable       | SQL          | 2024-06-21 19:15:46 | Success  | No       |
+| Versioned | 1.0.2   | di mytable2      | SQL          | 2024-06-21 19:15:46 | Success  | No       |
+| Versioned | 1.0.3   | js mytable       | SQL          | 2024-06-21 19:15:47 | Success  | No       |
+| Versioned | 1.0.4   | js mytable2      | SQL          | 2024-06-21 19:15:47 | Success  | No       |
++-----------+---------+------------------+--------------+---------------------+----------+----------+
 ```
 * Verify the database indeed has the tables shown above.
