@@ -29,14 +29,14 @@ podman run flyway-image jdbc:postgresql://host.docker.internal:5432/sonataflow <
 ```
 * You should see output, which contains the following
 ```text
-+-----------+---------+------------------+--------------+---------------------+----------+----------+
-| Category  | Version | Description      | Type         | Installed On        | State    | Undoable |
-+-----------+---------+------------------+--------------+---------------------+----------+----------+
-| Baseline  | 1.0.0   | di create schema | SQL_BASELINE | 2024-06-21 19:15:46 | Baseline | No       |
-| Versioned | 1.0.1   | di mytable       | SQL          | 2024-06-21 19:15:46 | Success  | No       |
-| Versioned | 1.0.2   | di mytable2      | SQL          | 2024-06-21 19:15:46 | Success  | No       |
-| Versioned | 1.0.3   | js mytable       | SQL          | 2024-06-21 19:15:47 | Success  | No       |
-| Versioned | 1.0.4   | js mytable2      | SQL          | 2024-06-21 19:15:47 | Success  | No       |
-+-----------+---------+------------------+--------------+---------------------+----------+----------+
++-----------+---------+------------------------------+--------+---------------------+---------+----------+
+| Category  | Version | Description                  | Type   | Installed On        | State   | Undoable |
++-----------+---------+------------------------------+--------+---------------------+---------+----------+
+|           |         | << Flyway Schema Creation >> | SCHEMA | 2024-06-24 15:14:02 | Success |          |
+| Versioned | 1.0.1   | di mytable                   | SQL    | 2024-06-24 15:14:02 | Success | No       |
+| Versioned | 1.0.2   | di mytable2                  | SQL    | 2024-06-24 15:14:02 | Success | No       |
+| Versioned | 1.0.3   | js mytable2                  | SQL    | 2024-06-24 15:14:02 | Success | No       |
+| Versioned | 1.0.4   | js mytable                   | SQL    | 2024-06-24 15:14:02 | Success | No       |
++-----------+---------+------------------------------+--------+---------------------+---------+----------+
 ```
 * Verify the database indeed has the tables shown above.

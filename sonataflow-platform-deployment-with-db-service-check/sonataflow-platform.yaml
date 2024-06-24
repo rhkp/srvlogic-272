@@ -18,6 +18,12 @@ spec:
             userKey: POSTGRES_USER
             passwordKey: POSTGRES_PASSWORD
       podTemplate:
+        container:
+          env:
+            # by now, when the WF persistence is initialized we don't set migration to true.
+            # we can re-evaluate to default to true.
+            - name: QUARKUS_FLYWAY_MIGRATE_AT_START
+              value: 'false'            
         initContainers:
           - name: di-init-hello
             image: busybox:1.28
@@ -26,25 +32,6 @@ spec:
             image: registry.access.redhat.com/ubi9/ubi-minimal:latest
             imagePullPolicy: IfNotPresent
             command: [ 'sh', '-c', 'until (echo 1 > /dev/tcp/postgres.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local/5432) >/dev/null 2>&1; do echo "Waiting for postgres server"; sleep 3; done;' ]
-          - name: setup-db
-            image: quay.io/rhkp/flyway-image:latest
-            imagePullPolicy: IfNotPresent
-            command: ["./migration.sh"]
-            args:
-              - "jdbc:postgresql://postgres:5432/sonataflow"
-              - "$(db_username)"
-              - "$(db_password)"
-            env:
-              - name: db_username
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-secrets
-                    key: POSTGRES_USER
-              - name: db_password
-                valueFrom:
-                  secretKeyRef:
-                    name: postgres-secrets
-                    key: POSTGRES_PASSWORD
     jobService:
       enabled: true
       persistence:
@@ -55,6 +42,12 @@ spec:
             userKey: POSTGRES_USER
             passwordKey: POSTGRES_PASSWORD
       podTemplate:
+        container:
+          env:
+            # by now, when the WF persistence is initialized we don't set migration to true.
+            # we can re-evaluate to default to true.
+            - name: QUARKUS_FLYWAY_MIGRATE_AT_START
+              value: 'false'            
         initContainers:
           - name: js-init-hello
             image: busybox:1.28

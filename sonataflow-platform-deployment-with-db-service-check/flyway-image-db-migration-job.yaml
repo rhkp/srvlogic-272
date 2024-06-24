@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flyway-image-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: flyway-image
+          image: quay.io/rhkp/flyway-image:latest
+          command: ["./migration.sh"]
+          args:
+            - "jdbc:postgresql://postgres:5432/sonataflow"
+            - "$(db_username)"
+            - "$(db_password)"
+          env:
+            - name: db_username
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_USER
+            - name: db_password
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+      restartPolicy: Never
+  backoffLimit: 4
