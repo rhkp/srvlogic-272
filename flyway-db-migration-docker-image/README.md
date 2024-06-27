@@ -1,4 +1,6 @@
-# DB Migration Podman Image using Flyway
+# Deprecated - DB Migration Podman Image using Flyway
+This version of Flyway DB migration image is deprecated as it does not make use of Red Hat official ubi9 image.
+Instead please visit [ubi9 based flyway image](../ubi9-flyway-db-migration-docker-image/README.md).
 
 ## Issue description
 [SRVLOGIC-272: Persistency and schema initialization handling](https://issues.redhat.com/browse/SRVLOGIC-272)
