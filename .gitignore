@@ -2,4 +2,5 @@
 *.tar.gz
 *.zip
 **/flyway
+**/target
 .DS_Store
