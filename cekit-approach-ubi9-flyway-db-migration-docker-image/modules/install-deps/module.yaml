@@ -17,8 +17,8 @@
 # under the License.
 #
 schema_version: 1
-name: change-permissions
+name: install-deps
 version: "1.0"
 
 execute:
-  - script: configure
+  - script: install

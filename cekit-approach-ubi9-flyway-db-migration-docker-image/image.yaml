@@ -2,36 +2,9 @@ name: "quay.io/rhkp/flyway-image"
 version: 1.0
 from: registry.access.redhat.com/ubi9:9.4-1123
 description: Flyway image for DI/JS database migration
-artifacts:
-  # - name: flyway-commandline-10.15.1-linux-x64.tar.gz
-  #   url: https://download.red-gate.com/maven/release/com/redgate/flyway/flyway-commandline/10.15.1/flyway-commandline-10.15.1-linux-x64.tar.gz
-  #   target: flyway
-  #   dest: /home/default
-  - name: db-migration-files
-    path: ./db-migration-files
-    md5: d3033a1359a8cf5105e0f4f0f287e4a7
-    dest: /home/default/db-migration-files
-  - name: migration.sh
-    path: ./migration.sh
-    md5: e691514142a1de56917bb84231f33baf
-    dest: /home/default
 modules:
  repositories:
    - path: modules
  install:
-   - name: change-permissions
-# run:
-#  user: root
-#  workdir: "/home/default"
-  # entrypoint:
-  #   - "ls / && ls /home && ls /home/default && /home/default/migration.sh"
-#
-#  COPY db-migration-files db-migration-files
-#
-#  COPY migration.sh .
-#
-#  RUN chmod +x migration.sh
-#
-#  RUN chgrp -R 0 /home/default && chmod -R g=u /home/default
-#
+   - name: install-deps
 #  ENTRYPOINT ["/home/default/migration.sh"]
