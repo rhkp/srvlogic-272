@@ -9,6 +9,5 @@ modules:
    - name: install-deps
 run:
   workdir: "/home/default"
-  user: "default"
   entrypoint:
     - "/home/default/migration.sh"

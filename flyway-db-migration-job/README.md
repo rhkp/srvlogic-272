@@ -6,6 +6,7 @@
 ## Prerequisites
 * Running OpenShift 4.15 cluster
 * Working oc command on developer machine
+* The flyway image has been made ready for use and available. Please checkout [this](../cekit-approach-ubi9-flyway-db-migration-docker-image/README.md).
 
 ## Deploy and Run the DB Migration Job including Postgres Service
 * Run the following command in a terminal
