@@ -7,4 +7,8 @@ modules:
    - path: modules
  install:
    - name: install-deps
-#  ENTRYPOINT ["/home/default/migration.sh"]
+run:
+  workdir: "/home/default"
+  user: "default"
+  entrypoint:
+    - "/home/default/migration.sh"

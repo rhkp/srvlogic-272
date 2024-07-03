@@ -17,7 +17,7 @@
 # specific language governing permissions and limitations
 # under the License.
 #
-dnf install -y wget
+dnf install -y wget tar gzip
 
 mkdir -p /home/default
 cd /home/default
@@ -31,9 +31,11 @@ wget https://github.com/rhkp/srvlogic-272/raw/main/cekit-approach-ubi9-flyway-db
 tar -xvf db-migration-files.tar
 
 wget https://raw.githubusercontent.com/rhkp/srvlogic-272/main/cekit-approach-ubi9-flyway-db-migration-docker-image/migration.sh
-chmod +x migration.sh
+chmod a+x migration.sh
 
-chgrp -R 0 /home/default && chmod -R g=u /home/default
+chgrp -R 0 /home/default
+chown -R 0 /home/default
+chmod -R g=u /home/default
 
 ls -al /home/default
 ls -al /home/default/flyway
