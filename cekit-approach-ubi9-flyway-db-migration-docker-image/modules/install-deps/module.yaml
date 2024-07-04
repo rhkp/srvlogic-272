@@ -19,6 +19,15 @@
 schema_version: 1
 name: install-deps
 version: "1.0"
-
+artifacts:
+  - name: db-migration-files.tar
+    path: artifacts/db-migration-files.tar
+    dest: /home/default
+  - name: flyway.tar.gz
+    path: artifacts/flyway.tar.gz
+    dest: /home/default
+  - name: migration.sh
+    path: artifacts/migration.sh
+    dest: /home/default
 execute:
   - script: install

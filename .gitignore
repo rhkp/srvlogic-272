@@ -1,6 +1,8 @@
 *.jar
 *.tar.gz
 *.zip
+*.tar
 **/flyway
 **/target
+**/artifacts
 .DS_Store
