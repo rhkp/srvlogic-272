@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS di; 
 -- Create DI DB
 CREATE DATABASE di
     WITH
@@ -7,7 +8,8 @@ CREATE DATABASE di
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
-create extension dblink;
+DROP EXTENSION IF EXISTS dblink;
+CREATE EXTENSION dblink;
 SET search_path TO public;
 SELECT dblink_connect('di-conn', 'dbname=di password=postgres' );
 
@@ -21,4 +23,3 @@ SELECT dblink_exec('di-conn',
         MyColumn VARCHAR(100) NOT NULL
     );
 ');
-

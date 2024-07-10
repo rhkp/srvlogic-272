@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS js; 
 -- Create JS DB
 CREATE DATABASE js
     WITH
@@ -17,9 +18,8 @@ SELECT dblink_exec('js-conn',
 '
     CREATE SCHEMA "jobs-service"
         AUTHORIZATION postgres;
-
     SET SEARCH_PATH="jobs-service";
     CREATE TABLE JSMyTable2 (
         MyColumn VARCHAR(100) NOT NULL
     );
-';
+');

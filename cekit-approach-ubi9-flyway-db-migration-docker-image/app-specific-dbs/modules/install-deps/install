@@ -21,7 +21,7 @@
 cd /home/default
 
 tar -xf /home/default/flyway.tar.gz
-mv flyway-10.15.1 flyway
+mv flyway-10.15.2 flyway
 
 tar -xvf db-migration-files.tar
 
