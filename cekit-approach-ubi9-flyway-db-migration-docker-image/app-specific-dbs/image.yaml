@@ -1,0 +1,13 @@
+name: "quay.io/rhkp/flyway-image"
+version: 1.0
+from: --platform=linux/arm64 registry.access.redhat.com/ubi9:9.4-1123
+description: Flyway image for DI/JS database migration
+modules:
+ repositories:
+   - path: modules
+ install:
+   - name: install-deps
+run:
+  workdir: "/home/default"
+  entrypoint:
+    - "/home/default/migration.sh"
