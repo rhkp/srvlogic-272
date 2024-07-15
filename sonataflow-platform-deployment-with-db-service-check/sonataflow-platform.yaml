@@ -9,6 +9,7 @@ spec:
         KanikoBuildCacheEnabled: "true"
   services:
     dataIndex:
+      migrateDBOnStartUp: false
       enabled: true
       persistence:
         postgresql:
@@ -18,12 +19,8 @@ spec:
             userKey: POSTGRES_USER
             passwordKey: POSTGRES_PASSWORD
       podTemplate:
+        replicas: 1
         container:
-          env:
-            # by now, when the WF persistence is initialized we don't set migration to true.
-            # we can re-evaluate to default to true.
-            - name: QUARKUS_FLYWAY_MIGRATE_AT_START
-              value: 'false'            
         initContainers:
           - name: di-init-hello
             image: busybox:1.28
@@ -33,6 +30,7 @@ spec:
             imagePullPolicy: IfNotPresent
             command: [ 'sh', '-c', 'until (echo 1 > /dev/tcp/postgres.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local/5432) >/dev/null 2>&1; do echo "Waiting for postgres server"; sleep 3; done;' ]
     jobService:
+      migrateDBOnStartUp: false
       enabled: true
       persistence:
         postgresql:
@@ -43,11 +41,6 @@ spec:
             passwordKey: POSTGRES_PASSWORD
       podTemplate:
         container:
-          env:
-            # by now, when the WF persistence is initialized we don't set migration to true.
-            # we can re-evaluate to default to true.
-            - name: QUARKUS_FLYWAY_MIGRATE_AT_START
-              value: 'false'            
         initContainers:
           - name: js-init-hello
             image: busybox:1.28
