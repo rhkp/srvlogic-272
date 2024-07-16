@@ -9,9 +9,9 @@ spec:
         KanikoBuildCacheEnabled: "true"
   services:
     dataIndex:
-      migrateDBOnStartUp: false
       enabled: true
       persistence:
+        migrateDBOnStartUp: false
         postgresql:
           jdbcUrl: jdbc:postgresql://postgres:5432/sonataflow?currentSchema=data-index-service
           secretRef:
@@ -30,9 +30,9 @@ spec:
             imagePullPolicy: IfNotPresent
             command: [ 'sh', '-c', 'until (echo 1 > /dev/tcp/postgres.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local/5432) >/dev/null 2>&1; do echo "Waiting for postgres server"; sleep 3; done;' ]
     jobService:
-      migrateDBOnStartUp: false
       enabled: true
       persistence:
+        migrateDBOnStartUp: false
         postgresql:
           jdbcUrl: jdbc:postgresql://postgres:5432/sonataflow?currentSchema=jobs-service
           secretRef:
