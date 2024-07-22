@@ -20,10 +20,10 @@
 
 cd /home/default
 
-tar -xvf /home/default/flyway.tar.gz
-mv flyway-10.15.1 flyway
+tar -xf /home/default/flyway.tar.gz
+mv flyway-10.16.0 flyway
 
-tar -xvf db-migration-files.tar
+tar -xf db-migration-files.tar
 
 chmod a+x migration.sh
 
