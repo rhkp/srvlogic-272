@@ -9,20 +9,38 @@ spec:
         - name: flyway-image
           image: quay.io/rhkp/flyway-image:latest
           command: ["/home/default/migration.sh"]
-          args:
-            - "jdbc:postgresql://postgres:5432/sonataflow"
-            - "$(db_username)"
-            - "$(db_password)"
           env:
-            - name: db_username
+            - name: DI_DB_URL
+              value: jdbc:postgresql://postgres:5432/sonataflow
+            - name: DI_DB_USER
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_USER
-            - name: db_password
+            - name: DI_DB_PWD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_PASSWORD
+            - name: JS_DB_URL
+              value: jdbc:postgresql://postgres:5432/sonataflow
+            - name: JS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_USER
+            - name: JS_DB_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+            - name: MIGRATE_DATA_INDEX
+              value: "true"
+            - name: MIGRATE_JOBS_SERVICE
+              value: "true"
+            - name: DATA_INDEX_SCHEMA
+              value: di-schema
+            - name: JOBS_SERVICE_SCHEMA
+              value: js-schema
       restartPolicy: Never
   backoffLimit: 4
