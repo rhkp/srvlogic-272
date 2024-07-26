@@ -3,7 +3,7 @@ oc create namespace aswf
 oc project aswf
 
 # Install SonataFlow Operator
-oc create -f https://raw.githubusercontent.com/kiegroup/kogito-serverless-operator/main/operator.yaml
+# oc create -f https://raw.githubusercontent.com/kiegroup/kogito-serverless-operator/main/operator.yaml
 oc project sonataflow-operator-system
 oc wait --for=jsonpath='{.status.phase}'=Running "$(oc get pod -o name | grep sonataflow-operator-controller-manager)" --timeout=3m
 

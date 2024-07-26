@@ -16,9 +16,9 @@
 ```
 * The image can be executed with the command of the form
 ```shell
-podman run flyway-image <url> <your-db-user> <your-db-password>
+podman run --env DB_URL=<your-db-url> --env DB_USER=<your-db-user> --env DB_PWD=<your-db-password> --env DATA_INDEX_SCHEMA=<your-di-schema> --env JOBS_SERVICE_SCHEMA=<your-js-schema> quay.io/rhkp/flyway-image:latest
 
-# url: jdbc:postgresql:<server>:<port>/<db> e.g. jdbc:postgresql://host.docker.internal:5432/sonataflow
+# your-db-url: jdbc:postgresql:<server>:<port>/<db> e.g. jdbc:postgresql://host.docker.internal:5432/sonataflow
 ```
 
 ## Create databases in Postgres Server
@@ -27,7 +27,7 @@ podman run flyway-image <url> <your-db-user> <your-db-password>
 ## Run the DB Migration Image
 * Migrate the database using following command
 ```shell
-podman run flyway-image jdbc:postgresql://host.docker.internal:5432/sonataflow <your-db-user> <your-db-password>
+podman run --env DB_URL=jdbc:postgresql://host.docker.internal:5432/postgres --env DB_USER=<your-db-user> --env DB_PWD=<your-db-password> --env DATA_INDEX_SCHEMA=<your-di-schema> --env JOBS_SERVICE_SCHEMA=<your-js-schema> quay.io/rhkp/flyway-image:latest
 ```
 * You should see output, which contains the text somewhat like the following
 ```text

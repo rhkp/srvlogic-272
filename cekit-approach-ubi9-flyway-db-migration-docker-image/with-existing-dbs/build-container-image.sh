@@ -15,7 +15,7 @@ wget https://download.red-gate.com/maven/release/com/redgate/flyway/flyway-comma
 mv flyway-commandline-10.16.0-linux-x64.tar.gz flyway.tar.gz
 
 # DB Migration files
-tar -cvf db-migration-files.tar db-migration-files
+tar -cf db-migration-files.tar db-migration-files
 
 mkdir -p ./modules/install-deps/artifacts
 cp ./db-migration-files.tar ./flyway.tar.gz ./migration.sh ./modules/install-deps/artifacts
