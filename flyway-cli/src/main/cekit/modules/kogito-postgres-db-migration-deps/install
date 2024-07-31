@@ -34,7 +34,7 @@ git clone https://github.com/rhkp/srvlogic-272.git
 cd srvlogic-272/flyway-cli
 
 # build uber jar
-mvn -X package # -Dquarkus.package.jar.type=uber-jar
+mvn package # -Dquarkus.package.jar.type=uber-jar
 
 chgrp -R 0 /home/default
 chown -R 0 /home/default
