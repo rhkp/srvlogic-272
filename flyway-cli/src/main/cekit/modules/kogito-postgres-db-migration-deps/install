@@ -18,32 +18,35 @@
 # under the License.
 #
 
+# For use by Maven
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.11.0.9-2.el8.x86_64
+
 mkdir -p /home/default
 cd /home/default
 
 microdnf install --nodocs tar gzip wget unzip git
 
+# Install Maven
 wget https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip
 unzip apache-maven-3.9.8-bin.zip
 mv apache-maven-3.9.8 maven
 export PATH="/home/default/maven/bin:$PATH"
 rm -f apache-maven-3.9.8-bin.zip
 
-# clone the flyway-cli
+# Clone Flyway DB Migrator
+clone the flyway-cli
 git clone https://github.com/rhkp/srvlogic-272.git
 cd srvlogic-272/flyway-cli
 
-# build uber jar
-mvn package # -Dquarkus.package.jar.type=uber-jar
+# Get Data Index/ Jobs Service DDL Files
+wget https://repository.apache.org/content/groups/snapshots/org/kie/kogito/kogito-ddl/10.0.999-SNAPSHOT/kogito-ddl-10.0.999-20240726.011627-10-db-scripts.zip
+unzip kogito-ddl-10.0.999-20240726.011627-10-db-scripts.zip
+mv ./postgresql src/main/resources
 
 chgrp -R 0 /home/default
 chown -R 0 /home/default
 chmod -R g=u /home/default
 
-ls -al /home/default
+chmod +x /home/default/migration.sh
 
 microdnf clean all
-java --version
-mvn -version
-# which java
-$JAVA_HOME/bin/java --version

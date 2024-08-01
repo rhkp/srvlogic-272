@@ -18,6 +18,6 @@
 # under the License.
 #
 
-# run uber jar
-cd /home/default/srvlogic-272
-java -Dquarkus-profile=dev -jar target/flyway-cli-1.0-SNAPSHOT-runner.jar
+export PATH="/home/default/maven/bin:$PATH"
+cd /home/default/srvlogic-272/flyway-cli
+mvn quarkus:dev
