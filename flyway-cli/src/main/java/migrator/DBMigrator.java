@@ -13,7 +13,7 @@ public class DBMigrator implements QuarkusApplication {
     @Override
     public int run(String... args) throws Exception {
         service.checkMigration();
-
+        System.exit(0);
         return 0;
     }
 }
