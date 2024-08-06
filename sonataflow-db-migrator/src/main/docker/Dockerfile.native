@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/flyway-cli .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/sonataflow-db-migrator .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/flyway-cli
+# docker run -i --rm -p 8080:8080 quarkus/sonataflow-db-migrator
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.9

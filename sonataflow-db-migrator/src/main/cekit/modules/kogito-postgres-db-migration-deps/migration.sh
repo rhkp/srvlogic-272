@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
@@ -16,15 +17,5 @@
 # specific language governing permissions and limitations
 # under the License.
 #
-schema_version: 1
-name: kogito-postgres-db-migration-deps
-version: "1.0"
-artifacts:
-  - name: migration.sh
-    path: migration.sh
-    dest: /home/default
-  - name: flyway-cli-1.0-SNAPSHOT-runner.jar
-    path: flyway-cli-1.0-SNAPSHOT-runner.jar
-    dest: /home/default
-execute:
-  - script: install
+
+java -jar /home/default/sonataflow-db-migrator-1.0-SNAPSHOT-runner.jar

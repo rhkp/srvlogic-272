@@ -1,8 +1,6 @@
-# flyway-cli
+# sonataflow-db-migrator
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+This is a quarkus database migrator application for Sonataflow Data Index and Jobs Service.
 
 ## Running the application in dev mode
 
@@ -13,6 +11,23 @@ You can run your application in dev mode that enables live coding using:
 ```
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+
+## Build and Run cekit image locally
+You can build the cekit container image by using the provided image builder shell script
+```shell
+./build-container-image.sh
+```
+Ensure the script completes without errors.
+If you may have a cekit specific Python virtual environment, be sure to activate it, so the script can find the cekit command.
+```shell
+virtualenv ~/cekit
+source ~/cekit/bin/activate;
+```
+
+Assuming you have Postgres database running locally, you can run the image by command as follows, just substitute appropriate values.
+```shell
+podman run --env QUARKUS_DATASOURCE_JDBC_URL=<your-db-url e.g. jdbc:postgresql://host.docker.internal:5432/postgres> --env QUARKUS_DATASOURCE_USERNAME=<your-db-user> --env QUARKUS_DATASOURCE_PASSWORD=<your-db-password> docker.io/apache/incubator-kie-kogito-service-db-migration-postgresql:999-SNAPSHOT
+```
 
 ## Packaging and running the application
 
@@ -49,7 +64,7 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/flyway-cli-1.0-SNAPSHOT-runner`
+You can then execute your native executable with: `./target/sonataflow-db-migrator-1.0-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
 
