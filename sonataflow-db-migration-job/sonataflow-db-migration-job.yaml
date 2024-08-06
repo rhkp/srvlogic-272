@@ -1,15 +1,27 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: flyway-image-job
+  name: sonataflow-db-migrator-job
 spec:
   template:
     spec:
       containers:
-        - name: flyway-image
-          image: quay.io/rhkp/flyway-image:latest
+        - name: sonataflow-db-migrator
+          image: quay.io/rhkp/incubator-kie-kogito-service-db-migration-postgresql:latest
           command: ["/home/default/migration.sh"]
           env:
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              value: jdbc:postgresql://postgres:5432/sonataflow
+            - name: QUARKUS_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_USER
+            - name: QUARKUS_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
             - name: DI_DB_URL
               value: jdbc:postgresql://postgres:5432/sonataflow
             - name: DI_DB_USER

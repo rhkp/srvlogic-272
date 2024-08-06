@@ -10,5 +10,5 @@ oc apply -f pg.yaml
 oc wait --for=condition=Ready "$(oc get pod -o name | grep postgres)" --timeout=3m
 
 # Migrate the database with the job
-oc apply -f flyway-image-db-migration-job.yaml
-oc wait --for=condition=complete --timeout=3m job/flyway-image-job -n aswf
+oc apply -f sonataflow-db-migration-job.yaml
+oc wait --for=condition=complete --timeout=3m job/sonataflow-db-migrator-job -n aswf
