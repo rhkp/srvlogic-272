@@ -18,6 +18,4 @@
 # under the License.
 #
 
-export PATH="/home/default/maven/bin:$PATH"
-cd /home/default/srvlogic-272/flyway-cli
-mvn quarkus:dev
+java -jar /home/default/flyway-cli-1.0-SNAPSHOT-runner.jar

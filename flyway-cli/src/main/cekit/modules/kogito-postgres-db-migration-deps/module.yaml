@@ -23,5 +23,8 @@ artifacts:
   - name: migration.sh
     path: migration.sh
     dest: /home/default
+  - name: flyway-cli-1.0-SNAPSHOT-runner.jar
+    path: flyway-cli-1.0-SNAPSHOT-runner.jar
+    dest: /home/default
 execute:
   - script: install
