@@ -7,6 +7,8 @@ import io.quarkus.logging.Log;
 
 import java.sql.SQLException;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 @QuarkusMain
 public class DBMigrator implements QuarkusApplication {
 
@@ -16,31 +18,37 @@ public class DBMigrator implements QuarkusApplication {
     @Inject
     DBConnectionChecker dbConnectionChecker;
 
+    @ConfigProperty(name = "migrate.db.dataindex")
+    Boolean migrateDataIndex;
+
+    @ConfigProperty(name = "migrate.db.jobsservice")
+    Boolean migrateJobsService;
+
     @Override
     public int run(String... args) {
-        boolean dataIndexDBAvailable = true;
-        boolean jobsServiceDBAvailable = true;
-
-        try {
-            dbConnectionChecker.checkDataIndexDBConnection();
-        } catch (SQLException e) {
-            dataIndexDBAvailable = false;
+        if (migrateDataIndex) {
+            try {
+                dbConnectionChecker.checkDataIndexDBConnection();
+            } catch (SQLException e) {
+                Log.error( "Error obtaining data index database connection. Cannot proceed, exiting.");
+                System.exit(-1);
+                return -1;
+            }
+            service.migrateDataIndex();
         }
 
-        try {
-            dbConnectionChecker.checkJobsServiceDBConnection();
-        } catch (SQLException e) {
-            jobsServiceDBAvailable = false;
+        if (migrateJobsService) {
+            try {
+                dbConnectionChecker.checkJobsServiceDBConnection();
+            } catch (SQLException e) {
+                Log.error( "Error obtaining jobs service database connection. Cannot proceed, exiting.");
+                System.exit(-2);
+                return -2;
+            }
+            service.migrateJobsService();
         }
 
-        if (dataIndexDBAvailable && jobsServiceDBAvailable) {
-            service.checkMigration();
-            System.exit(0);
-            return 0;
-        } else {
-            Log.error( "Error obtaining data index or jobs service or both service's database connection. Are they available? Cannot proceed, exiting.");
-            System.exit(-1);
-            return -1;
-        }
+        System.exit(0);
+        return 0;
     }
 }

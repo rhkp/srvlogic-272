@@ -10,49 +10,37 @@ spec:
           image: quay.io/rhkp/incubator-kie-kogito-service-db-migration-postgresql:latest
           command: ["/home/default/migration.sh"]
           env:
-            - name: QUARKUS_DATASOURCE_JDBC_URL
+            - name: QUARKUS_DATASOURCE_DATAINDEX_JDBC_URL
               value: jdbc:postgresql://postgres:5432/sonataflow
-            - name: QUARKUS_DATASOURCE_USERNAME
+            - name: QUARKUS_DATASOURCE_DATAINDEX_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_USER
-            - name: QUARKUS_DATASOURCE_PASSWORD
+            - name: QUARKUS_DATASOURCE_DATAINDEX_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_PASSWORD
-            - name: DI_DB_URL
+            - name: QUARKUS_DATASOURCE_JOBSSERVICE_JDBC_URL
               value: jdbc:postgresql://postgres:5432/sonataflow
-            - name: DI_DB_USER
+            - name: QUARKUS_DATASOURCE_JOBSSERVICE_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_USER
-            - name: DI_DB_PWD
+            - name: QUARKUS_DATASOURCE_JOBSSERVICE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_PASSWORD
-            - name: JS_DB_URL
-              value: jdbc:postgresql://postgres:5432/sonataflow
-            - name: JS_DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets
-                  key: POSTGRES_USER
-            - name: JS_DB_PWD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secrets
-                  key: POSTGRES_PASSWORD
-            - name: MIGRATE_DATA_INDEX
+            - name: MIGRATE_DB_DATAINDEX
               value: "true"
-            - name: MIGRATE_JOBS_SERVICE
+            - name: MIGRATE_DB_JOBSSERVICE
               value: "true"
-            - name: DATA_INDEX_SCHEMA
+            - name: QUARKUS_FLYWAY_DATAINDEX_SCHEMAS
               value: di-schema
-            - name: JOBS_SERVICE_SCHEMA
+            - name: QUARKUS_FLYWAY_JOBSSERVICE_SCHEMAS
               value: js-schema
       restartPolicy: Never
   backoffLimit: 4

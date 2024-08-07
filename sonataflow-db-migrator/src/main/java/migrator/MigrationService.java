@@ -26,21 +26,21 @@ public class MigrationService {
     @ConfigProperty(name = "quarkus.flyway.jobsservice.clean-at-start")
     Boolean cleanJobsService;
 
-    public void checkMigration() {
-        Log.info("Migrating data index");
-        if (cleanDataIndex) {
-            Log.info("Cleaned the dataindex");
-            flywayDataIndex.clean();
+    private void migrateDB(Flyway flywayService, Boolean clean, String serviceName) {
+        Log.info("Migrating " + serviceName);
+        if (clean) {
+            Log.info("Cleaned the " + serviceName);
+            flywayService.clean();
         }
-        flywayDataIndex.migrate();
-        Log.info(flywayDataIndex.info().current().getVersion().toString());
+        flywayService.migrate();
+        Log.info(flywayService.info().current().getVersion().toString());
+    }
 
-        Log.info("Migrating jobs service");
-        if (cleanJobsService) {
-            Log.info("Cleaned the jobsservice");
-            flywayJobsService.clean();
-        }
-        flywayJobsService.migrate();
-        Log.info(flywayJobsService.info().current().getVersion().toString());
+    public void migrateDataIndex() {
+        migrateDB(flywayDataIndex, cleanDataIndex, "data-index");
+    }
+
+    public void migrateJobsService() {
+        migrateDB(flywayJobsService, cleanJobsService, "jobs-service");
     }
 }

@@ -27,13 +27,15 @@ source ~/cekit/bin/activate;
 Assuming you have Postgres database running locally and e.g. have a di database for data index and js database for jobs service, you can run the image by command as follows, just substitute appropriate values.
 ```shell
 podman run \ 
+--env MIGRATE_DB_DATAINDEX=true \
 --env QUARKUS_DATASOURCE_DATAINDEX_JDBC_URL=<data-index-db-url jdbc:postgresql://host.docker.internal:5432/di> \
 --env QUARKUS_DATASOURCE_DATAINDEX_USERNAME=<data-index-db-user> \ 
 --env QUARKUS_DATASOURCE_DATAINDEX_PASSWORD=<data-index-db-password> \
 --env QUARKUS_FLYWAY_DATAINDEX_SCHEMAS=dataindex \
+--env MIGRATE_DB_JOBSSERVICE=true \
 --env QUARKUS_DATASOURCE_JOBSSERVICE_JDBC_URL=<jobs-service-db-url jdbc:postgresql://host.docker.internal:5432/js> \
 --env QUARKUS_DATASOURCE_JOBSSERVICE_USERNAME=<jobs-service-db-user> \
---env QUARKUS_JOBSSERVICE_DATAINDEX_PASSWORD=<jobs-service-db-password> \
+--env QUARKUS_DATASOURCE_JOBSSERVICE_PASSWORD=<jobs-service-db-password> \
 --env QUARKUS_FLYWAY_JOBSSERVICE_SCHEMAS=jobsservice \
 docker.io/apache/incubator-kie-kogito-service-db-migration-postgresql:999-SNAPSHOT
 ```
